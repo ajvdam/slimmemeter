@@ -19,7 +19,7 @@ public class DummyPortReader implements PortReaderService {
 	
 	@Override
 	public Telegram getTelegram() {
-		telele.setVermogen(telele.getVermogen() + 1.0);
+		telele.setVermogen(telele.getVermogen() + 100.0);
 		return telele;
 	}
 

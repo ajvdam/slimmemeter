@@ -11,9 +11,10 @@
         </h:head>
         <h:body>
 			<h:form>
-				<h:outputText id="currentPower" value="#{electricityReadingController.power}" />
-				<p:poll interval="3" update="currentPower" />		
+				<p:poll interval="5" update="currentPower, kmteller" />		
 			</h:form>
+			<h:outputText id="currentPower" value="#{electricityReadingController.power}" />
+			<p:chart id="kmteller" type="metergauge" model="#{electricityReadingController.meterGaugeModel}" style="width:400px;height:250px" />
         </h:body>
     </f:view>
 </html>
