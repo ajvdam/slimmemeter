@@ -17,20 +17,20 @@ import smarthome.slimmemeter.service.ElectricityReadingService;
 @ViewScoped
 public class ElectricityReadingController{
 
-	private static final int MAX_WAARDE_KM_TELLER = 5000;
+	private static final int MAX_WAARDE_KM_TELLER = 5;
 	@Inject
 	private ElectricityReadingService slimmeMeterService;
 	@Getter
 	private MeterGaugeChartModel meterGaugeModel;
 
-	public Double getPower() {
-		Double power = getReading();
-		Double maxTeller = power;
+	public String getPower() {
+		int power = getReading();
+		Double maxTeller = Double.valueOf(power)/1000.0;
 		if (maxTeller > MAX_WAARDE_KM_TELLER) {
 			maxTeller = Double.valueOf(MAX_WAARDE_KM_TELLER);
 		}
 		meterGaugeModel.setValue(maxTeller);
-		return power;
+		return power + " W";
 	}
 	
     @PostConstruct
@@ -42,9 +42,9 @@ public class ElectricityReadingController{
         List<Number> intervals = new ArrayList<Number>(){
 			private static final long serialVersionUID = 1L;
 		{
-            add(1000);
-            add(2000);
-            add(3000);
+            add(1);
+            add(2);
+            add(3);
             add(MAX_WAARDE_KM_TELLER);
         }};
          
@@ -53,13 +53,13 @@ public class ElectricityReadingController{
  
     private void createMeterGaugeModel() {
         meterGaugeModel = initTresholdsMeterGaugeModel();
-        meterGaugeModel.setTitle("Actuele Vermogen in [Watt]");
-        meterGaugeModel.setGaugeLabel("Watt");
+        meterGaugeModel.setLabelHeightAdjust(20);
+        meterGaugeModel.setGaugeLabel("kW");
         meterGaugeModel.setSeriesColors("66cc66,eef442,ff6600,ff0000");
     }
     
-	private double getReading() {
-		return slimmeMeterService.getTelegram().getVermogen() * 1000;
+	private int getReading() {
+		return slimmeMeterService.getTelegram().getVermogen();
 	}
 	
 }

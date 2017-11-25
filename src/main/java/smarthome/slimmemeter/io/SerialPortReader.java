@@ -153,7 +153,7 @@ public class SerialPortReader implements PortReaderService {
 			if (isElectricityReadingTariff1PowerLine(line) || isElectricityReadingTariff2PowerLine(line)) {
 				Matcher electricityMatcher = electricityPowerPattern.matcher(line);
 				if (electricityMatcher.find()) {
-					double electricityReading = Double.parseDouble(electricityMatcher.group());
+					int electricityReading = Integer.valueOf(electricityMatcher.group());
 					if (electricityReading > 0) {
 						telegram.setVermogen(electricityReading);
 					}

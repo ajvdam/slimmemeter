@@ -8,13 +8,19 @@
     <f:view contentType="text/html">
         <h:head>
             <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+            <h:outputStylesheet name="style.css" />
         </h:head>
         <h:body>
 			<h:form>
 				<p:poll interval="5" update="currentPower, kmteller" />		
 			</h:form>
-			<h:outputText id="currentPower" value="#{electricityReadingController.power}" />
-			<p:chart id="kmteller" type="metergauge" model="#{electricityReadingController.meterGaugeModel}" style="width:400px;height:250px" />
+			<p:panelGrid columns="1" style="text-align: center">
+				<h:outputText id="Title" value="Actuele Vermogen"/>
+				<p:chart id="kmteller" type="metergauge" model="#{electricityReadingController.meterGaugeModel}"
+					style="width:400px; height:250px"/>
+				<h:outputText id="currentPower" value="#{electricityReadingController.power}" 
+					class="currentPowerText"/>
+			</p:panelGrid>
         </h:body>
     </f:view>
 </html>

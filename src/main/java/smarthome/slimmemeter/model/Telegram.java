@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Telegram {
 
    private LocalDateTime dateTime;	
-   private double vermogen;
+   private int vermogen;
    private double verbruikTarief1;
    private double verbruikTarief2;
    
