@@ -14,12 +14,12 @@ public class DummyPortReader implements PortReaderService {
 	@PostConstruct
 	private void ini() {
 		telele = new Telegram();
-		telele.setVermogen(0);
+		telele.setVermogen(1.0);
 	}
 	
 	@Override
 	public Telegram getTelegram() {
-		telele.setVermogen(telele.getVermogen() + 100);
+		telele.setVermogen(telele.getVermogen() + 0.100);
 		return telele;
 	}
 
