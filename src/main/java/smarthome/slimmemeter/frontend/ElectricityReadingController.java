@@ -17,7 +17,7 @@ import smarthome.slimmemeter.service.ElectricityReadingService;
 @ViewScoped
 public class ElectricityReadingController{
 
-	private static final int MAX_WAARDE_KM_TELLER = 3000;
+	private static final int MAX_WAARDE_KM_TELLER = 5000;
 	@Inject
 	private ElectricityReadingService slimmeMeterService;
 	@Getter
@@ -44,6 +44,7 @@ public class ElectricityReadingController{
 		{
             add(1000);
             add(2000);
+            add(3000);
             add(MAX_WAARDE_KM_TELLER);
         }};
          
@@ -54,7 +55,7 @@ public class ElectricityReadingController{
         meterGaugeModel = initTresholdsMeterGaugeModel();
         meterGaugeModel.setTitle("Actuele Vermogen in [Watt]");
         meterGaugeModel.setGaugeLabel("Watt");
-        meterGaugeModel.setSeriesColors("66cc66,ff6600,ff0000");
+        meterGaugeModel.setSeriesColors("66cc66,eef442,ff6600,ff0000");
     }
     
 	private double getReading() {
