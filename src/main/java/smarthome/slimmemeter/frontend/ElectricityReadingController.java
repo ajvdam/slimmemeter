@@ -24,13 +24,13 @@ public class ElectricityReadingController{
 	private MeterGaugeChartModel meterGaugeModel;
 
 	public String getPower() {
-		Double power = getReading();
-		Double maxTeller = power;
+		int power = getReading();
+		double maxTeller = Double.valueOf(power)/1000.0;
 		if (maxTeller > MAX_WAARDE_KM_TELLER) {
-			maxTeller = Double.valueOf(MAX_WAARDE_KM_TELLER);
+			maxTeller = MAX_WAARDE_KM_TELLER;
 		}
 		meterGaugeModel.setValue(maxTeller);
-		return power.toString() + " kW";
+		return power + " W";
 	}
 	
     @PostConstruct
@@ -53,11 +53,14 @@ public class ElectricityReadingController{
  
     private void createMeterGaugeModel() {
         meterGaugeModel = initTresholdsMeterGaugeModel();
+        meterGaugeModel.setLabelHeightAdjust(20);
+        meterGaugeModel.setGaugeLabel("kW");        
         meterGaugeModel.setSeriesColors("66cc66,eef442,ff6600,ff0000");
     }
     
-	private double getReading() {
-		return slimmeMeterService.getTelegram().getVermogen();
+    // in Watt
+	private int getReading() {
+		return (Double.valueOf(slimmeMeterService.getTelegram().getVermogen() * 1000)).intValue();
 	}
 	
 }
