@@ -5,46 +5,112 @@
 	<groupId>smarthome</groupId>
 	<artifactId>slimmemeter</artifactId>
 
-    <parent>
-        <groupId>org.joinfaces</groupId>
-        <artifactId>joinfaces-parent</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+	<parent>
+		<groupId>org.joinfaces</groupId>
+		<artifactId>joinfaces-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <primefaces-theme.version>1.0.10</primefaces-theme.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<primefaces-theme.version>1.0.10</primefaces-theme.version>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.annotation</groupId>
-                    <artifactId>javax.annotation-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.annotation</groupId>
+					<artifactId>javax.annotation-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
 		<dependency>
-            <groupId>org.joinfaces</groupId>
-            <artifactId>primefaces-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>overcast</artifactId>
-            <version>${primefaces-theme.version}</version>
-        </dependency>    
-		
+			<groupId>org.joinfaces</groupId>
+			<artifactId>primefaces-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>jetty-spring-boot-starter</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>undertow-spring-boot-starter</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>myfaces-spring-boot-starter</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>omnifaces-spring-boot-starter</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.joinfaces</groupId>
+					<artifactId>spring-security-jsf-taglib</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.security</groupId>
+					<artifactId>spring-security-taglibs</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.primefaces.extensions</groupId>
+					<artifactId>resources-ckeditor</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jdt</groupId>
+					<artifactId>ecj</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.module</groupId>
+					<artifactId>jackson-module-kotlin</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.datatype</groupId>
+					<artifactId>jackson-datatype-jsr310</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.module</groupId>
+					<artifactId>jackson-module-parameter-names</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.datatype</groupId>
+					<artifactId>jackson-datatype-jdk8</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>overcast</artifactId>
+			<version>${primefaces-theme.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.github.purejavacomm</groupId>
 			<artifactId>purejavacomm</artifactId>
@@ -57,36 +123,39 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 	<repositories>
-	 	<repository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>  
-            <id>primefaces-maven-repository</id>  
-            <name>PrimeFaces Maven Repository</name>  
-            <url>http://repository.primefaces.org</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>        
+		<repository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>primefaces-maven-repository</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <url>http://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>            
-        </pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
 	</pluginRepositories>
-	<version>0.15</version>
+	<version>0.17</version>
 </project>
