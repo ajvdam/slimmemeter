@@ -1,5 +1,6 @@
 package smarthome.slimmemeter.frontend;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,31 +12,38 @@ import javax.inject.Named;
 import org.primefaces.model.chart.MeterGaugeChartModel;
 
 import lombok.Getter;
+import smarthome.slimmemeter.model.Telegram;
 import smarthome.slimmemeter.service.ElectricityReadingService;
 
 @Named
 @ViewScoped
-public class ElectricityReadingController{
+public class ElectricityReadingController implements Serializable{
 
+	private static final long serialVersionUID = 5992372568060110227L;
 	private static final int MAX_WAARDE_KM_TELLER = 5;
 	@Inject
 	private ElectricityReadingService slimmeMeterService;
 	@Getter
 	private MeterGaugeChartModel meterGaugeModel;
+	private Telegram telegram;
+	private Integer watt;
+	private Double kW;
+
+	public void updateValues() {
+		telegram = slimmeMeterService.getTelegram();
+		kW = telegram.getVermogen();
+		watt = new Double(kW * 1000.0).intValue();
+		meterGaugeModel.setValue(kW > MAX_WAARDE_KM_TELLER ? MAX_WAARDE_KM_TELLER : kW);
+	}
 
 	public String getPower() {
-		int power = getReading();
-		double maxTeller = Double.valueOf(power)/1000.0;
-		if (maxTeller > MAX_WAARDE_KM_TELLER) {
-			maxTeller = MAX_WAARDE_KM_TELLER;
-		}
-		meterGaugeModel.setValue(maxTeller);
-		return power + " W";
+		return watt + " W";
 	}
 	
     @PostConstruct
     private void init() {
         createMeterGaugeModel();
+    	updateValues();
     }
  
     private MeterGaugeChartModel initTresholdsMeterGaugeModel() {
@@ -57,10 +65,5 @@ public class ElectricityReadingController{
         meterGaugeModel.setGaugeLabel("kW");        
         meterGaugeModel.setSeriesColors("66cc66,eef442,ff6600,ff0000");
     }
-    
-    // in Watt
-	private int getReading() {
-		return (Double.valueOf(slimmeMeterService.getTelegram().getVermogen() * 1000)).intValue();
-	}
 	
 }
