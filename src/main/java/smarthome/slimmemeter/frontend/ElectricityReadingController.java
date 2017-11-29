@@ -28,16 +28,16 @@ public class ElectricityReadingController implements Serializable{
 	private Telegram telegram;
 	private Integer watt;
 	private Double kW;
+	private Double counter1;
+	private Double counter2;
 
 	public void updateValues() {
 		telegram = slimmeMeterService.getTelegram();
 		kW = telegram.getVermogen();
+		counter1 = telegram.getVerbruikTarief1();
+		counter2 = telegram.getVerbruikTarief2();		
 		watt = new Double(kW * 1000.0).intValue();
 		meterGaugeModel.setValue(kW > MAX_WAARDE_KM_TELLER ? MAX_WAARDE_KM_TELLER : kW);
-	}
-
-	public String getPower() {
-		return watt + " W";
 	}
 	
     @PostConstruct
@@ -65,5 +65,17 @@ public class ElectricityReadingController implements Serializable{
         meterGaugeModel.setGaugeLabel("kW");        
         meterGaugeModel.setSeriesColors("66cc66,eef442,ff6600,ff0000");
     }
+
+	public String getPower() {
+		return watt + " W";
+	}
+
+	public String getCounter1() {
+		return counter1 + " kWh";
+	}
+
+	public String getCounter2() {
+		return counter2 + " kWh";
+	}
 	
 }

@@ -12,13 +12,18 @@
         </h:head>
         <h:body>
 			<h:form>
-				<p:poll interval="5" listener="#{electricityReadingController.updateValues}" update="watt, kmteller"/>		
+				<p:poll interval="5" listener="#{electricityReadingController.updateValues}" 
+					update="watt, kmteller, kwh1, kwh2"/>		
 			</h:form>
 			<p:panelGrid columns="1" style="text-align: center">
-				<h:outputText id="Title" value="Actuele Vermogen"/>
+				<h:outputText id="Title" value="Actuele vebruik"/>
 				<p:chart id="kmteller" type="metergauge" model="#{electricityReadingController.meterGaugeModel}"
 					style="width:400px; height:250px"/>
 				<h:outputText id="watt" value="#{electricityReadingController.power}" 
+					class="currentPowerText"/>
+				<h:outputText id="kwh1" value="#{electricityReadingController.counter1}" 
+					class="currentPowerText"/>
+				<h:outputText id="kwh2" value="#{electricityReadingController.counter2}" 
 					class="currentPowerText"/>
 			</p:panelGrid>
         </h:body>
