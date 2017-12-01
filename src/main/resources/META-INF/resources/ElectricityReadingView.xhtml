@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html" 
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
-    <f:view contentType="text/html">
-        <h:head>
-            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
-            <h:outputStylesheet name="style.css" />
-        </h:head>
-        <h:body>
-			<h:form>
-				<p:poll interval="5" listener="#{electricityReadingController.updateValues}" 
-					update="watt, kmteller, kwh1, kwh2"/>		
-			</h:form>
-			<p:panelGrid columns="1" style="text-align: center">
-				<h:outputText id="Title" value="Actuele vebruik"/>
-				<p:chart id="kmteller" type="metergauge" model="#{electricityReadingController.meterGaugeModel}"
-					style="width:400px; height:250px"/>
-				<h:outputText id="watt" value="#{electricityReadingController.power}" 
-					class="currentPowerText"/>
-				<h:outputText id="kwh1" value="#{electricityReadingController.counter1}" 
-					class="currentPowerText"/>
-				<h:outputText id="kwh2" value="#{electricityReadingController.counter2}" 
-					class="currentPowerText"/>
-			</p:panelGrid>
-        </h:body>
-    </f:view>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+
+<f:view contentType="text/html" renderKitId="PRIMEFACES_MOBILE">
+	<h:head>
+		<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		<h:outputStylesheet name="style.css" />
+	</h:head>
+	<h:body>
+		<pm:page>
+			<pm:header title="Verbruik"></pm:header>
+			<pm:content>
+				<h:form prependId="false">
+					<p:poll interval="5"
+						listener="#{electricityReadingController.updateValues}"
+						update="watt, kmteller, kwh1, kwh2" />
+					<p:panelGrid columns="1" style="text-align: center" styleClass="ui-responsive">
+						<p:chart id="kmteller" type="metergauge" styleClass="kmTeller"
+							model="#{electricityReadingController.meterGaugeModel}"	/>
+ 						<h:outputText id="watt"
+							value="#{electricityReadingController.power}"
+							class="currentPowerText" />
+						<h:outputText id="kwh1"
+							value="#{electricityReadingController.counter1}"
+							class="currentPowerText" />
+						<h:outputText id="kwh2"
+							value="#{electricityReadingController.counter2}"
+							class="currentPowerText" />
+					</p:panelGrid>
+				</h:form>
+			</pm:content>
+			<pm:footer></pm:footer>
+		</pm:page>
+	</h:body>
+</f:view>
 </html>
