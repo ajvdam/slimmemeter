@@ -12,10 +12,19 @@
 		<h:outputStylesheet name="style.css" />
 	</h:head>
 	<h:body>
-		<pm:page>
+	
+		<pm:page id="Home">
+			<pm:header title="Home"></pm:header>
+			<pm:content>
+				<p:button outcome="pm:Electricity" value="Electriciteit" />
+				<p:button outcome="pm:Heat" value="Warmte" />				
+			</pm:content>
+		</pm:page>
+	
+		<pm:page id="Electricity">
 			<pm:header title="Electriciteit"></pm:header>
 			<pm:content>
-				<h:form prependId="false">
+				<h:form>
 					<p:poll interval="5"
 						listener="#{electricityReadingController.updateValues}"
 						update="watt, kmteller" />
@@ -26,10 +35,30 @@
 							value="#{electricityReadingController.power}"
 							class="currentPowerText" />
 					</p:panelGrid>
+					<p:button outcome="pm:Home" value="Home" />					
 				</h:form>
 			</pm:content>
-			<pm:footer></pm:footer>
 		</pm:page>
+		
+		<pm:page id="Heat">
+			<pm:header title="Warmte"></pm:header>
+			<pm:content>
+				<h:form>
+					<p:poll interval="5"
+						listener="#{electricityReadingController.updateValues}"
+						update="watt, kmteller" />
+					<p:panelGrid columns="1" style="text-align: center" styleClass="ui-responsive">
+						<p:chart id="kmteller" type="metergauge" styleClass="kmTeller"
+							model="#{electricityReadingController.meterGaugeModel}"	/>
+ 						<h:outputText id="watt"
+							value="#{electricityReadingController.power}"
+							class="currentPowerText" />
+					</p:panelGrid>
+					<p:button outcome="pm:Home" value="Home" />
+				</h:form>
+			</pm:content>
+		</pm:page>
+		
 	</h:body>
 </f:view>
 </html>
