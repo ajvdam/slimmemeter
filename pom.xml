@@ -4,6 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>smarthome</groupId>
 	<artifactId>slimmemeter</artifactId>
+	<version>0.23</version>
 
 	<parent>
 		<groupId>org.joinfaces</groupId>
@@ -19,17 +20,6 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>javax.annotation</groupId>
-					<artifactId>javax.annotation-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<dependency>
 			<groupId>org.joinfaces</groupId>
 			<artifactId>primefaces-spring-boot-starter</artifactId>
@@ -153,5 +143,5 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-	<version>0.22</version>
+
 </project>
