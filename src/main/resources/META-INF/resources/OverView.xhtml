@@ -12,53 +12,62 @@
 		<h:outputStylesheet name="style.css" />
 	</h:head>
 	<h:body>
-	
-		<pm:page id="Home">
-			<pm:header title="Home"></pm:header>
+
+		<pm:page id="Overview">
+			<pm:header title="Energie"></pm:header>
 			<pm:content>
-				<p:button outcome="pm:Electricity" value="Electriciteit" />
-				<p:button outcome="pm:Heat" value="Warmte" />				
+				<p:accordionPanel multiple="true">
+					<p:tab title="Electriciteit">
+						<h:form>
+							<p:poll interval="5"
+								listener="#{electricityReadingController.updateValues}"
+								update="elekGrid" />
+							<p:panelGrid id="elekGrid" columns="1" style="text-align: center"
+								styleClass="ui-responsive">
+								<p:chart id="elekMeter" type="metergauge" styleClass="kmTeller"
+									model="#{electricityReadingController.meterGaugeModel}" />
+								<h:outputText id="elekWatt"
+									value="#{electricityReadingController.power}"
+									class="currentPowerText" />
+							</p:panelGrid>
+						</h:form>
+					</p:tab>
+					<p:tab title="Verwarming">
+						<h:form>
+							<p:poll interval="10"
+								listener="#{electricityReadingController.updateValues}"
+								update="warmteGrid" />
+							<p:panelGrid id="warmteGrid" columns="1" style="text-align: center"
+								styleClass="ui-responsive">
+								<p:chart id="elekMeter" type="metergauge" styleClass="kmTeller"
+									model="#{electricityReadingController.meterGaugeModel}" />
+								<h:outputText id="elekWatt"
+									value="#{electricityReadingController.power}"
+									class="currentPowerText" />
+							</p:panelGrid>
+						</h:form>
+					</p:tab>
+					<p:tab title="Warm water">
+						<h:form>
+							<p:poll interval="10"
+								listener="#{electricityReadingController.updateValues}"
+								update="warmteGrid" />
+							<p:panelGrid id="warmteGrid" columns="1" style="text-align: center"
+								styleClass="ui-responsive">
+								<p:chart id="elekMeter" type="metergauge" styleClass="kmTeller"
+									model="#{electricityReadingController.meterGaugeModel}" />
+								<h:outputText id="elekWatt"
+									value="#{electricityReadingController.power}"
+									class="currentPowerText" />
+							</p:panelGrid>
+						</h:form>
+					</p:tab>
+					
+				</p:accordionPanel>
 			</pm:content>
+			<pm:footer></pm:footer>
 		</pm:page>
-	
-		<pm:page id="Electricity">
-			<pm:header title="Electriciteit"></pm:header>
-			<pm:content>
-				<h:form>
-					<p:poll interval="5"
-						listener="#{electricityReadingController.updateValues}"
-						update="watt, kmteller" />
-					<p:panelGrid columns="1" style="text-align: center" styleClass="ui-responsive">
-						<p:chart id="kmteller" type="metergauge" styleClass="kmTeller"
-							model="#{electricityReadingController.meterGaugeModel}"	/>
- 						<h:outputText id="watt"
-							value="#{electricityReadingController.power}"
-							class="currentPowerText" />
-					</p:panelGrid>
-					<p:button outcome="pm:Home" value="Home" />					
-				</h:form>
-			</pm:content>
-		</pm:page>
-		
-		<pm:page id="Heat">
-			<pm:header title="Warmte"></pm:header>
-			<pm:content>
-				<h:form>
-					<p:poll interval="5"
-						listener="#{electricityReadingController.updateValues}"
-						update="watt, kmteller" />
-					<p:panelGrid columns="1" style="text-align: center" styleClass="ui-responsive">
-						<p:chart id="kmteller" type="metergauge" styleClass="kmTeller"
-							model="#{electricityReadingController.meterGaugeModel}"	/>
- 						<h:outputText id="watt"
-							value="#{electricityReadingController.power}"
-							class="currentPowerText" />
-					</p:panelGrid>
-					<p:button outcome="pm:Home" value="Home" />
-				</h:form>
-			</pm:content>
-		</pm:page>
-		
+
 	</h:body>
 </f:view>
 </html>
