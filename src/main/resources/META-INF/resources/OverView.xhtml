@@ -35,14 +35,13 @@
 					<p:tab title="Verwarming">
 						<h:form>
 							<p:poll interval="10"
-								listener="#{electricityReadingController.updateValues}"
-								update="warmteGrid" />
-							<p:panelGrid id="warmteGrid" columns="1" style="text-align: center"
+								listener="#{heatController.updateHeatingValues}"
+								update="heatingGrid" />
+							<p:panelGrid id="heatingGrid" columns="1" style="text-align: center"
 								styleClass="ui-responsive">
-								<p:chart id="elekMeter" type="metergauge" styleClass="kmTeller"
-									model="#{electricityReadingController.meterGaugeModel}" />
-								<h:outputText id="elekWatt"
-									value="#{electricityReadingController.power}"
+								<p:chart type="metergauge" styleClass="kmTeller"
+									model="#{heatController.heatingMeter}" />
+								<h:outputText value="#{heatController.heatingPower}"
 									class="currentPowerText" />
 							</p:panelGrid>
 						</h:form>
@@ -50,14 +49,13 @@
 					<p:tab title="Warm water">
 						<h:form>
 							<p:poll interval="10"
-								listener="#{electricityReadingController.updateValues}"
-								update="warmteGrid" />
-							<p:panelGrid id="warmteGrid" columns="1" style="text-align: center"
+								listener="#{heatController.updateHotWaterValues}"
+								update="hotWaterGrid" />
+							<p:panelGrid id="hotWaterGrid" columns="1" style="text-align: center"
 								styleClass="ui-responsive">
-								<p:chart id="elekMeter" type="metergauge" styleClass="kmTeller"
-									model="#{electricityReadingController.meterGaugeModel}" />
-								<h:outputText id="elekWatt"
-									value="#{electricityReadingController.power}"
+								<p:chart type="metergauge" styleClass="kmTeller"
+									model="#{heatController.hotWaterMeter}" />
+								<h:outputText value="#{heatController.hotWaterPower}"
 									class="currentPowerText" />
 							</p:panelGrid>
 						</h:form>
