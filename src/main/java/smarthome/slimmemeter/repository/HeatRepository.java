@@ -2,8 +2,6 @@ package smarthome.slimmemeter.repository;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Service;
 
 import com.pi4j.component.temperature.TemperatureSensor;
@@ -12,58 +10,46 @@ import com.pi4j.io.w1.W1Device;
 import com.pi4j.io.w1.W1Master;
 
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @Setter
+@Log4j2
 public class HeatRepository {
 
 	private static final String DEVICE_ID_HEAT_EXCHANGE_IN = "28-0316a2e999ff";
 	private static final String DEVICE_ID_HEAT_EXCHANGE_OUT = "28-0316a2e339ff";
 	private static final String DEVICE_ID_HOT_WATER_IN = "28-0316a2e2adff";
 	private static final String DEVICE_ID_HEATING_IN = "28-0416a26655ff";
-	
-	private List<W1Device> tempDevices;
-	
-	@PostConstruct
-	private void init() {
+
+	private double getTempValue(String id, String logString) {
+		double temp = 0;
 		W1Master master = new W1Master();
-		tempDevices = master.getDevices(TmpDS18B20DeviceType.FAMILY_CODE);
+		List<W1Device> tempDevices = master.getDevices(TmpDS18B20DeviceType.FAMILY_CODE);
+		for (W1Device device : tempDevices) {
+			log.error("Temp {} is {}.", device.getId(), ((TemperatureSensor) device).getTemperature());
+			if (id.equals(device.getId())) {
+				temp = ((TemperatureSensor) device).getTemperature();
+			}
+		}
+		log.error(logString, temp);
+		return temp;
 	}
 
 	public double getTempHeatExchangeIn() {
-		for (W1Device device : tempDevices) {
-			if (DEVICE_ID_HEAT_EXCHANGE_IN.equals(device.getId())) {
-				return ((TemperatureSensor) device).getTemperature();
-			}
-		}
-		return 0;
+		return getTempValue(DEVICE_ID_HEAT_EXCHANGE_IN, "T_ExchangeIn = {} degree Celsius.");
 	}
 
 	public double getTempHeatExchangeOut() {
-		for (W1Device device : tempDevices) {
-			if (DEVICE_ID_HEAT_EXCHANGE_OUT.equals(device.getId())) {
-				return ((TemperatureSensor) device).getTemperature();
-			}
-		}
-		return 0;
+		return getTempValue(DEVICE_ID_HEAT_EXCHANGE_OUT, "T_ExchangeOut = {} degree Celsius.");
 	}
 
 	public double getTempHotWaterIn() {
-		for (W1Device device : tempDevices) {
-			if (DEVICE_ID_HOT_WATER_IN.equals(device.getId())) {
-				return ((TemperatureSensor) device).getTemperature();
-			}
-		}
-		return 0;
+		return getTempValue(DEVICE_ID_HOT_WATER_IN, "T_HotWater = {} degree Celsius.");
 	}
 
 	public double getTempHeatingIn() {
-		for (W1Device device : tempDevices) {
-			if (DEVICE_ID_HEATING_IN.equals(device.getId())) {
-				return ((TemperatureSensor) device).getTemperature();
-			}
-		}
-		return 0;
+		return getTempValue(DEVICE_ID_HEATING_IN, "T_HeatingIn = {} degree Celsius.");
 	}
-	
+
 }

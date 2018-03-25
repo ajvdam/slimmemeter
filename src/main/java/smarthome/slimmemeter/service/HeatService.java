@@ -4,9 +4,11 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import lombok.extern.log4j.Log4j2;
 import smarthome.slimmemeter.repository.HeatRepository;
 
 @Service
+@Log4j2
 public class HeatService {
 
 	/*
@@ -38,22 +40,28 @@ public class HeatService {
 	}
 
 	private boolean isExchangerOn() {
-		return getDeltaT() > TRESHOLD_DELTA_TEMP_EXCHANGER_ON;
+		boolean value = getDeltaT() > TRESHOLD_DELTA_TEMP_EXCHANGER_ON;
+		log.error("isExchangeOn : {}", value);
+		return value;
 	}
-
 
 	private boolean isHeatingOn() {
-		return isExchangerOn()
-				&& heatRepo.getTempHeatingIn() > TRESHOLD_TEMP_HEATING_WATER_ON;
+		boolean value = isExchangerOn() && heatRepo.getTempHeatingIn() > TRESHOLD_TEMP_HEATING_WATER_ON;
+		log.error("isHeatingOn : {}", value);
+		return value;
+
 	}
-	
+
 	private boolean isHotWaterOn() {
-		return isExchangerOn()
-				&& heatRepo.getTempHotWaterIn() > TRESHOLD_TEMP_HOT_WATER_ON;
+		boolean value = isExchangerOn() && heatRepo.getTempHotWaterIn() > TRESHOLD_TEMP_HOT_WATER_ON;
+		log.error("isHotWaterOn : {}", value);
+		return value;
 	}
 
 	private double getDeltaT() {
 		deltaT = heatRepo.getTempHeatExchangeIn() - heatRepo.getTempHeatExchangeOut();
+		log.error("===================================");
+		log.error("deltaT={}K.", deltaT);
 		return deltaT;
 	}
 }
