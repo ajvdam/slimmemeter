@@ -71,7 +71,7 @@ public class HeatController implements Serializable{
     }
 
 	public String getHeatingPower() {
-		return String.valueOf(heatingPower).substring(0, 4) + " kW";
+		return heatingPower + " kW";		
 	}
 
     private MeterGaugeChartModel initHotWaterMeter() {
@@ -94,7 +94,7 @@ public class HeatController implements Serializable{
     }
 
 	public String getHotWaterPower() {
-		return String.valueOf(hotWaterPower).substring(0, 4) + " kW";
+		return hotWaterPower + " kW";
 	}
 
 	

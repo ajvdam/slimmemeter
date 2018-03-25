@@ -38,11 +38,11 @@ public class HeatService {
 	}
 	
 	public boolean isHeatingOn() {
-		return heatRepo.getTempHeatingWater() > TRESHOLD_DELTA_TEMP_HEATING_WATER_ON;		
+		return heatRepo.getTempHeatingIn() > TRESHOLD_DELTA_TEMP_HEATING_WATER_ON;		
 	}
 
 	public boolean isHotWaterOn() {
-		return heatRepo.getTempHotWater() > TRESHOLD_DELTA_TEMP_HOT_WATER_ON;
+		return heatRepo.getTempHotWaterIn() > TRESHOLD_DELTA_TEMP_HOT_WATER_ON;
 	}
 	
 }

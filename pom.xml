@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>smarthome</groupId>
 	<artifactId>slimmemeter</artifactId>
-	<version>0.23</version>
+	<version>0.24</version>
 
 	<parent>
 		<groupId>org.joinfaces</groupId>
@@ -101,6 +101,12 @@
 			<groupId>com.github.purejavacomm</groupId>
 			<artifactId>purejavacomm</artifactId>
 			<version>1.0.1.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.pi4j</groupId>
+			<artifactId>pi4j-device</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 
