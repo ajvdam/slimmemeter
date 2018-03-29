@@ -17,12 +17,12 @@ public class HeatService {
 	 * kg/s * kJ/(kg*K) * K = kJ/s = kW.
 	 */
 
-	private static final double FLOW_HOT_WATER = 0.222; // = 800 l/h
-	private static final double FLOW_HEATING = 0.083; // = 300 l/h
+	private static final double FLOW_HOT_WATER = 0.22; // 800 l/h
+	private static final double FLOW_HEATING = 0.10; // 370 l/h
 	private static final double SPECIFIC_HEAT = 4.18; // kJ/(kg*K)
-	private static final double TRESHOLD_TEMP_HEATING_WATER_ON = 55; // K
-	private static final double TRESHOLD_TEMP_HOT_WATER_ON = 40; // K
-	private static final double TRESHOLD_DELTA_TEMP_EXCHANGER_ON = 35; // K
+	private static final double TRESHOLD_TEMP_HEATING_ON = 35; // degrees Celsius
+	private static final double TRESHOLD_TEMP_HOT_WATER_ON = 35; // degrees Celsius
+	private static final double TRESHOLD_DELTA_TEMP_EXCHANGER_ON = 15; // K
 
 	private double deltaT;
 
@@ -31,11 +31,13 @@ public class HeatService {
 
 	// in kW.
 	public double getHeatingPower() {
+		heatRepo.readValues();
 		return isHeatingOn() ? FLOW_HEATING * SPECIFIC_HEAT * deltaT : 0;
 	}
 
 	// in kW.
 	public double getHotWaterPower() {
+		heatRepo.readValues();		
 		return isHotWaterOn() ? FLOW_HOT_WATER * SPECIFIC_HEAT * deltaT : 0;
 	}
 
@@ -46,14 +48,14 @@ public class HeatService {
 	}
 
 	private boolean isHeatingOn() {
-		boolean value = isExchangerOn() && heatRepo.getTempHeatingIn() > TRESHOLD_TEMP_HEATING_WATER_ON;
+		boolean value = heatRepo.getTempHeatingIn() > TRESHOLD_TEMP_HEATING_ON && isExchangerOn();
 		log.error("isHeatingOn : {}", value);
 		return value;
 
 	}
 
 	private boolean isHotWaterOn() {
-		boolean value = isExchangerOn() && heatRepo.getTempHotWaterIn() > TRESHOLD_TEMP_HOT_WATER_ON;
+		boolean value = heatRepo.getTempHotWater() > TRESHOLD_TEMP_HOT_WATER_ON && isExchangerOn();
 		log.error("isHotWaterOn : {}", value);
 		return value;
 	}
