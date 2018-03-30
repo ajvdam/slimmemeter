@@ -17,11 +17,11 @@ public class HeatService {
 	 * kg/s * kJ/(kg*K) * K = kJ/s = kW.
 	 */
 
-	private static final double FLOW_HOT_WATER = 0.22; // 800 l/h
-	private static final double FLOW_HEATING = 0.10; // 370 l/h
+	private static final double FLOW_HOT_WATER = 0.07; // 250 l/h
+	private static final double FLOW_HEATING = 0.1; // 360 l/h
 	private static final double SPECIFIC_HEAT = 4.18; // kJ/(kg*K)
-	private static final double TRESHOLD_TEMP_HEATING_ON = 35; // degrees Celsius
-	private static final double TRESHOLD_TEMP_HOT_WATER_ON = 35; // degrees Celsius
+	private static final double TRESHOLD_TEMP_HEATING_ON = 55; // degrees Celsius
+	private static final double TRESHOLD_TEMP_HOT_WATER_ON = 40; // degrees Celsius
 	private static final double TRESHOLD_DELTA_TEMP_EXCHANGER_ON = 15; // K
 
 	private double deltaT;
@@ -61,7 +61,8 @@ public class HeatService {
 	}
 
 	private double getDeltaT() {
-		deltaT = heatRepo.getTempHeatExchangeIn() - heatRepo.getTempHeatExchangeOut();
+		deltaT = heatRepo.getTempHeatExchangeIn() - heatRepo.getTempHeatExchangeOut() + 5.0;
+		// 5 graden compensatie omdat ExchIn eigenlijk 70 gr. is, ik meet maar 60 gr. C.
 		log.error("===================================");
 		log.error("deltaT={}K.", deltaT);
 		return deltaT;

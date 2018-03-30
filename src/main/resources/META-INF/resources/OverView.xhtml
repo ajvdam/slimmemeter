@@ -34,7 +34,7 @@
 					</p:tab>
 					<p:tab title="Verwarming">
 						<h:form>
-							<p:poll interval="18"
+							<p:poll interval="28"
 								listener="#{heatController.updateHeatingValues}"
 								update="heatingGrid" />
 							<p:panelGrid id="heatingGrid" columns="1" style="text-align: center"
@@ -48,7 +48,7 @@
 					</p:tab>
 					<p:tab title="Warm water">
 						<h:form>
-							<p:poll interval="22"
+							<p:poll interval="32"
 								listener="#{heatController.updateHotWaterValues}"
 								update="hotWaterGrid" />
 							<p:panelGrid id="hotWaterGrid" columns="1" style="text-align: center"

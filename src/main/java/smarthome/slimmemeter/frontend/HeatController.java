@@ -9,6 +9,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.chart.MeterGaugeChartModel;
 
 import lombok.Getter;
@@ -70,7 +71,7 @@ public class HeatController implements Serializable{
     }
 
 	public String getHeatingPower() {
-		return String.valueOf(heatingPower).substring(0, 3) + " kW";		
+		return StringUtils.substringBefore(String.valueOf(heatingPower), ".") + " kW";		
 	}
 
     private MeterGaugeChartModel initHotWaterMeter() {
@@ -93,7 +94,7 @@ public class HeatController implements Serializable{
     }
 
 	public String getHotWaterPower() {
-		return String.valueOf(hotWaterPower).substring(0, 3) + " kW";
+		return StringUtils.substringBefore(String.valueOf(hotWaterPower), ".") + " kW";
 	}
 
 	

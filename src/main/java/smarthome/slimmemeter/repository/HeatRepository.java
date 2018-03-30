@@ -38,11 +38,11 @@ public class HeatRepository {
 				break;
 			case DEVICE_ID_HEAT_EXCHANGE_OUT:
 				tempHeatExchangeOut = ((TemperatureSensor) device).getTemperature();
-				log.error("T_ExchangeOut = {} degree Celsius.", tempHotWater);
+				log.error("T_ExchangeOut = {} degree Celsius.", tempHeatExchangeOut);
 				break;
 			case DEVICE_ID_HOT_WATER_IN:
 				tempHotWater = ((TemperatureSensor) device).getTemperature();
-				log.error("T_HotWater = {} degree Celsius.", tempHeatExchangeOut);				
+				log.error("T_HotWater = {} degree Celsius.", tempHotWater);				
 				break;
 			case DEVICE_ID_HEATING_IN:
 				tempHeatingIn = ((TemperatureSensor) device).getTemperature();
